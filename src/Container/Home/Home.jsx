@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import axios from "axios";
-
 import { Loader } from '@progress/kendo-react-indicators';
+import WeatherCard from "../../Components/WeatherCard/WeatherCard";
 
 class Home extends React.Component {
     constructor(props) {
@@ -74,6 +74,7 @@ class Home extends React.Component {
         return this.state.isLoaded ? (
             <Fragment>
                 <div className="content-wrapper">
+                <WeatherCard data={this.state.currentWeather} />
                 </div>
             </Fragment>
         ) : (
