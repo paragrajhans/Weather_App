@@ -37,14 +37,6 @@ class Home extends React.Component {
                 console.log(forecast);
 
                 let dayOne = [], dayTwo = [], dayThree = [], dayFour = [], dayFive = [];
-                console.log(currentWeather.data.dt);
-                let temp_date = new Date(currentWeather.data.dt * 1000);
-                let year = temp_date.getUTCFullYear();
-                let month = temp_date.getUTCMonth() + 1;
-                let day = temp_date.getUTCDate();
-                let dateString = year + "-" + month + "-" + day;
-                console.log(dateString);
-
 
                 for (let i = 0; i < forecast.data.list.length; i++) {
                     if (forecast.data.list[i].dt_txt.slice(0, 10) === forecast.data.list[0].dt_txt.slice(0, 10)) {
@@ -107,7 +99,7 @@ class Home extends React.Component {
 
                     <TabStrip selected={this.state.selected} onSelect={this.handleSelect}>
                         <TabStripTab title={this.getDay(this.state.dayOne[0].dt)}>
-                            <div className="row no-gutters p-4">
+                            <div className="row no-gutters p-3">
                                 {this.state.dayOne.map(value => {
                                     return (
                                         <div className="card card-body mr-2 border-0 weather-card" style={{ width: "10rem", height: "14rem" }}>
@@ -123,7 +115,7 @@ class Home extends React.Component {
 
                         </TabStripTab>
                         <TabStripTab title={this.getDay(this.state.dayTwo[0].dt)}>
-                            <div className="row no-gutters p-4">
+                            <div className="row no-gutters p-3">
                                 {this.state.dayTwo.map(value => {
                                     return (
                                         <div className="card card-body mr-2 border-0 weather-card" style={{ width: "10rem", height: "14rem" }}>
@@ -139,7 +131,7 @@ class Home extends React.Component {
 
                         </TabStripTab>
                         <TabStripTab title={this.getDay(this.state.dayThree[0].dt)}>
-                            <div className="row no-gutters p-4">
+                            <div className="row no-gutters p-3">
                                 {this.state.dayThree.map(value => {
                                     return (
                                         <div className="card card-body mr-2 border-0 weather-card" style={{ width: "10rem", height: "14rem" }}>
@@ -155,7 +147,7 @@ class Home extends React.Component {
 
                         </TabStripTab>
                         <TabStripTab title={this.getDay(this.state.dayFour[0].dt)}>
-                            <div className="row no-gutters p-4">
+                            <div className="row no-gutters p-3">
                                 {this.state.dayFour.map(value => {
                                     return (
                                         <div className="card card-body mr-2 border-0 weather-card" style={{ width: "10rem", height: "14rem" }}>
@@ -171,7 +163,7 @@ class Home extends React.Component {
 
                         </TabStripTab>
                         <TabStripTab title={this.getDay(this.state.dayFive[0].dt)}>
-                            <div className="row no-gutters p-4">
+                            <div className="row no-gutters p-3">
                                 {this.state.dayFive.map(value => {
                                     return (
                                         <div className="card card-body mr-2 border-0 weather-card" style={{ width: "10rem", height: "14rem" }}>
