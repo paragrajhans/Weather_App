@@ -1,7 +1,9 @@
 import React, { Fragment } from 'react';
 import axios from "axios";
-import { Loader } from '@progress/kendo-react-indicators';
+import "./Home.scss";
 import WeatherCard from "../../Components/WeatherCard/WeatherCard";
+import { TabStrip, TabStripTab } from '@progress/kendo-react-layout';
+import { Loader } from '@progress/kendo-react-indicators';
 
 class Home extends React.Component {
     constructor(props) {
@@ -9,6 +11,7 @@ class Home extends React.Component {
         this.state = {
             API_KEY: "79b404c351b766cb48f9bea74a988957",
             currentWeather: [],
+            forecast: [],
             selected: 0,
             isLoaded: false
         };
@@ -34,6 +37,14 @@ class Home extends React.Component {
                 console.log(forecast);
 
                 let dayOne = [], dayTwo = [], dayThree = [], dayFour = [], dayFive = [];
+                console.log(currentWeather.data.dt);
+                let temp_date = new Date(currentWeather.data.dt * 1000);
+                let year = temp_date.getUTCFullYear();
+                let month = temp_date.getUTCMonth() + 1;
+                let day = temp_date.getUTCDate();
+                let dateString = year + "-" + month + "-" + day;
+                console.log(dateString);
+
 
                 for (let i = 0; i < forecast.data.list.length; i++) {
                     if (forecast.data.list[i].dt_txt.slice(0, 10) === forecast.data.list[0].dt_txt.slice(0, 10)) {
@@ -70,11 +81,113 @@ class Home extends React.Component {
 
     }
 
+    handleSelect = (e) => {
+        this.setState({ selected: e.selected })
+    }
+
+    getDay(date) {
+        let newDate = new Date(date * 1000);
+        return newDate.toUTCString().slice(0, 3);
+    }
+
+    getTime(date) {
+        let newDate = new Date(date * 1000);
+        return newDate.getUTCHours();
+    }
+
+    getHour(dt_txt) {
+        return dt_txt.slice(11, 16);
+    }
+
     render() {
         return this.state.isLoaded ? (
             <Fragment>
                 <div className="content-wrapper">
-                <WeatherCard data={this.state.currentWeather} />
+                    <WeatherCard data={this.state.currentWeather} />
+
+                    <TabStrip selected={this.state.selected} onSelect={this.handleSelect}>
+                        <TabStripTab title={this.getDay(this.state.dayOne[0].dt)}>
+                            <div className="row no-gutters p-4">
+                                {this.state.dayOne.map(value => {
+                                    return (
+                                        <div className="card card-body mr-2 border-0 weather-card" style={{ width: "10rem", height: "14rem" }}>
+                                            <p className="text-center">{value.dt_txt} hrs</p>
+                                            <img src={`http://openweathermap.org/img/wn/${value.weather[0].icon}@2x.png`} alt="weather-icon" style={{ alignSelf: "center" }} />
+                                            <h2 className="text-center">
+                                                {Math.round(value.main.temp)} &#8457;
+                                            </h2>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+
+                        </TabStripTab>
+                        <TabStripTab title={this.getDay(this.state.dayTwo[0].dt)}>
+                            <div className="row no-gutters p-4">
+                                {this.state.dayTwo.map(value => {
+                                    return (
+                                        <div className="card card-body mr-2 border-0 weather-card" style={{ width: "10rem", height: "14rem" }}>
+                                            <p className="text-center">{value.dt_txt} hrs</p>
+                                            <img src={`http://openweathermap.org/img/wn/${value.weather[0].icon}@2x.png`} alt="weather-icon" style={{ alignSelf: "center" }} />
+                                            <h2 className="text-center">
+                                                {Math.round(value.main.temp)} &#8457;
+                                        </h2>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+
+                        </TabStripTab>
+                        <TabStripTab title={this.getDay(this.state.dayThree[0].dt)}>
+                            <div className="row no-gutters p-4">
+                                {this.state.dayThree.map(value => {
+                                    return (
+                                        <div className="card card-body mr-2 border-0 weather-card" style={{ width: "10rem", height: "14rem" }}>
+                                            <p className="text-center">{value.dt_txt} hrs</p>
+                                            <img src={`http://openweathermap.org/img/wn/${value.weather[0].icon}@2x.png`} alt="weather-icon" style={{ alignSelf: "center" }} />
+                                            <h2 className="text-center">
+                                                {Math.round(value.main.temp)} &#8457;
+                                        </h2>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+
+                        </TabStripTab>
+                        <TabStripTab title={this.getDay(this.state.dayFour[0].dt)}>
+                            <div className="row no-gutters p-4">
+                                {this.state.dayFour.map(value => {
+                                    return (
+                                        <div className="card card-body mr-2 border-0 weather-card" style={{ width: "10rem", height: "14rem" }}>
+                                            <p className="text-center">{value.dt_txt} hrs</p>
+                                            <img src={`http://openweathermap.org/img/wn/${value.weather[0].icon}@2x.png`} alt="weather-icon" style={{ alignSelf: "center" }} />
+                                            <h2 className="text-center">
+                                                {Math.round(value.main.temp)} &#8457;
+                                        </h2>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+
+                        </TabStripTab>
+                        <TabStripTab title={this.getDay(this.state.dayFive[0].dt)}>
+                            <div className="row no-gutters p-4">
+                                {this.state.dayFive.map(value => {
+                                    return (
+                                        <div className="card card-body mr-2 border-0 weather-card" style={{ width: "10rem", height: "14rem" }}>
+                                            <p className="text-center">{value.dt_txt} hrs</p>
+                                            <img src={`http://openweathermap.org/img/wn/${value.weather[0].icon}@2x.png`} alt="weather-icon" style={{ alignSelf: "center" }} />
+                                            <h2 className="text-center">
+                                                {Math.round(value.main.temp)} &#8457;
+                                        </h2>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+
+                        </TabStripTab>
+                    </TabStrip>
+
                 </div>
             </Fragment>
         ) : (
